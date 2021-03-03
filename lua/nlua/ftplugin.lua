@@ -15,6 +15,11 @@ call apathy#Prepend('path', s:matchfilter(g:lua_path, '^[^?]*[^?\/]'))
 ]]
 
 -- Goal: /usr/local/share/lua/5.3,/usr/local/lib/lua/5.3,.,,
+local M = {}
+function M.key_setup(key)
+    M.key = key or "K"
+end
+
 local function setup_path()
   local split_paths = vim.split(package.path, ";")
 
@@ -46,5 +51,6 @@ return function()
   --      mapper('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
   --    end
   -- TODO: Customize keymap
-  vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<cmd>lua nlua.keyword_program()<CR>', {noremap = true, silent = true})
+  vim.api.nvim_buf_set_keymap(0, 'n', M.key, '<cmd>lua nlua.keyword_program()<CR>', {noremap = true, silent = true})
 end
+
